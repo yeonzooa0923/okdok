@@ -522,9 +522,9 @@
                     <div class="flex items-center gap-3" id="edit-modal-header"></div>
                     <div class="flex items-center gap-2 text-xs font-semibold">
                         <button id="delete-user-confirm-btn" class="hidden bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 font-bold px-2.5 py-1.5 rounded-lg hover:bg-red-100 transition-all">
-                            <i class="fa-solid fa-user-minus mr-1"></i>옥살이 추방
+                            <i class="fa-solid fa-user-minus mr-1"></i>명부 제거
                         </button>
-                        <button onclick="closeUpboEditModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-white p-2">
+                        <button onclick="closeUpboEditModal()" class="text-gray-400 hover:text-gray-650 dark:hover:text-white p-2">
                             <i class="fa-solid fa-xmark text-xl"></i>
                         </button>
                     </div>
@@ -544,7 +544,7 @@
             <div class="bg-white dark:bg-[#1d423d] rounded-2xl shadow-2xl w-11/12 max-w-sm p-6 transform scale-95 transition-all duration-300 border border-jade/20 dark:border-teal/40">
                 <div class="flex justify-between items-center mb-4 border-b border-jade/10 dark:border-teal/30 pb-3">
                     <h3 class="text-lg font-bold text-teal dark:text-white flex items-center gap-2"><i class="fa-solid fa-user-plus text-jade"></i> 명부 등재</h3>
-                    <button onclick="closeAddUserModal()" class="text-gray-400 hover:text-gray-650 dark:hover:text-white">
+                    <button onclick="closeAddUserModal()" class="text-gray-400 hover:text-gray-655 dark:hover:text-white">
                         <i class="fa-solid fa-xmark text-xl"></i>
                     </button>
                 </div>
@@ -570,7 +570,7 @@
             <div class="bg-white dark:bg-[#1d423d] rounded-2xl shadow-2xl w-11/12 max-w-lg overflow-hidden transform scale-95 transition-all duration-300 border border-jade/20 dark:border-teal/40 flex flex-col max-h-[85vh]">
                 <div class="p-4 flex items-center justify-between border-b border-jade/10 dark:border-teal/30 bg-jade/10 dark:bg-teal-light/20">
                     <h3 class="text-lg font-bold text-teal dark:text-white flex items-center gap-2"><i class="fa-solid fa-bullhorn text-teal dark:text-jade"></i> 공지사항 관리 센터</h3>
-                    <button onclick="closeNoticeEditModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-white p-2">
+                    <button onclick="closeNoticeEditModal()" class="text-gray-400 hover:text-gray-650 dark:hover:text-white p-2">
                         <i class="fa-solid fa-xmark text-xl"></i>
                     </button>
                 </div>
@@ -597,7 +597,7 @@
             <div class="bg-white dark:bg-[#1d423d] rounded-2xl shadow-2xl w-11/12 max-w-sm overflow-hidden transform scale-95 transition-all duration-300 border border-jade/20 dark:border-teal/40 flex flex-col max-h-[85vh]">
                 <div class="p-4 flex items-center justify-between border-b border-jade/10 dark:border-teal/30 bg-jade/10 dark:bg-teal-light/20">
                     <h3 class="text-lg font-bold text-teal dark:text-white flex items-center gap-2"><i class="fa-regular fa-calendar-check text-teal dark:text-jade"></i> 일정표 편성</h3>
-                    <button onclick="closeScheduleEditModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-white p-2">
+                    <button onclick="closeScheduleEditModal()" class="text-gray-400 hover:text-gray-650 dark:hover:text-white p-2">
                         <i class="fa-solid fa-xmark text-xl"></i>
                     </button>
                 </div>
@@ -615,7 +615,7 @@
                     <h3 class="text-lg font-bold text-teal dark:text-white flex items-center gap-2">
                         <i class="fa-solid fa-address-card text-teal dark:text-jade"></i> 대표 정보 일체 편집
                     </h3>
-                    <button onclick="closeProfileEditModal()" class="text-gray-400 hover:text-gray-650 dark:hover:text-white p-2">
+                    <button onclick="closeProfileEditModal()" class="text-gray-400 hover:text-gray-655 dark:hover:text-white p-2">
                         <i class="fa-solid fa-xmark text-xl"></i>
                     </button>
                 </div>
@@ -1502,7 +1502,7 @@
             return `https://placehold.co/100x100/9CD5C2/0F4C43?text=${encodeURIComponent(fallbackName)}`;
         }
 
-        // RENDER KARMA
+        // RENDER KARMA (Includes lock icon replacing standard images on missing IDs or image error handles)
         function renderUpbo(data) {
             const grid = document.getElementById('upbo-grid');
             if (!grid) return;
@@ -1518,6 +1518,15 @@
                 if (aggregate === 0 && !isAdminMode) return;
                 
                 const av = getSpecificAvatarUrl(user);
+                const hasId = user.id && user.id.trim() !== '';
+                
+                let avatarHtml = '';
+                if (hasId) {
+                    avatarHtml = `<img src="${av}" onerror="this.outerHTML='<div class=\\'w-14 h-14 rounded-full flex items-center justify-center bg-jade/10 dark:bg-teal-light/20 border border-jade/30 shadow-xs mb-2.5 text-xl\\'>🔒</div>\\''" alt="${user.nickname}" class="w-14 h-14 rounded-full object-cover mb-2.5 shadow-xs border border-jade/30">`;
+                } else {
+                    avatarHtml = `<div class="w-14 h-14 rounded-full flex items-center justify-center bg-jade/10 dark:bg-teal-light/20 border border-jade/30 shadow-xs mb-2.5 text-xl">🔒</div>`;
+                }
+                
                 const block = document.createElement('div');
                 block.className = 'bg-white dark:bg-[#17332F] border border-jade/15 dark:border-teal/35 rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer hover:bg-jade/10 dark:hover:bg-[#1f453f]/50 transition-all shadow-xs relative group click-bounce';
                 block.onclick = () => { if (isAdminMode) openUpboEditModal(user, av); else openUpboDetailPopup(user, av); };
@@ -1525,7 +1534,7 @@
 
                 block.innerHTML = `
                     ${adminIndicator}
-                    <img src="${av}" onerror="this.src='https://placehold.co/100x100/9CD5C2/0F4C43?text=${encodeURIComponent(user.nickname.substring(0,2))}'" alt="${user.nickname}" class="w-14 h-14 rounded-full object-cover mb-2.5 shadow-xs border border-jade/30">
+                    ${avatarHtml}
                     <div class="text-gray-900 dark:text-gray-100 font-bold text-xs mb-2 truncate w-full text-center">${user.nickname}</div>
                     <div class="bg-jade/20 text-teal dark:bg-teal dark:text-jade text-[11px] font-bold px-2.5 py-0.5 rounded-full">업보 ${aggregate}</div>
                 `;
@@ -1533,7 +1542,7 @@
             });
         }
 
-        // Popups: Non-admin detail modal
+        // Popups: Non-admin detail modal with custom locks fallback on error
         function openUpboDetailPopup(user, av) {
             let container = document.getElementById('upbo-detail-popup');
             if (!container) {
@@ -1550,17 +1559,25 @@
                 </div>
             `).join('') : `<div class="text-center text-gray-400 py-6 text-xs">축하합니다! 업보가 전부 깨끗하게 청산되었습니다. ✨</div>`;
 
+            const hasId = user.id && user.id.trim() !== '';
+            let avatarHtml = '';
+            if (hasId) {
+                avatarHtml = `<img src="${av}" onerror="this.outerHTML='<div class=\\'w-9 h-9 rounded-full flex items-center justify-center bg-jade/10 dark:bg-teal-light/20 border border-jade/30 shadow-xs text-base\\'>🔒</div>\\''" class="w-9 h-9 rounded-full border border-jade/30 object-cover">`;
+            } else {
+                avatarHtml = `<div class="w-9 h-9 rounded-full flex items-center justify-center bg-jade/10 dark:bg-teal-light/20 border border-jade/30 shadow-xs text-base">🔒</div>`;
+            }
+
             container.innerHTML = `
                 <div class="bg-white dark:bg-[#1d423d] rounded-2xl shadow-2xl w-11/12 max-w-sm overflow-hidden transform scale-95 transition-all duration-300 border border-jade/20 dark:border-teal/40">
                     <div class="p-4 flex items-center justify-between border-b border-jade/15 dark:border-teal/30 bg-[#F4FAF8]/80 dark:bg-[#122e29]">
                         <div class="flex items-center gap-2.5">
-                            <img src="${av}" onerror="this.src='https://placehold.co/100x100/9CD5C2/0F4C43?text=user.nickname.substring(0,2)'" class="w-9 h-9 rounded-full border border-jade/30 object-cover">
+                            ${avatarHtml}
                             <div>
                                 <div class="text-gray-900 dark:text-white font-bold text-xs">${user.nickname}</div>
                                 <div class="text-gray-450 dark:text-gray-300 text-[10px]">(${user.id || 'ID 미지정'})</div>
                             </div>
                         </div>
-                        <button onclick="closeUpboDetailPopup()" class="text-gray-400 hover:text-gray-600 dark:hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+                        <button onclick="closeUpboDetailPopup()" class="text-gray-400 hover:text-gray-650 dark:hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
                     </div>
                     <div class="p-4 max-h-60 overflow-y-auto">${recordsHtml}</div>
                 </div>
@@ -1583,7 +1600,7 @@
             }
         }
 
-        // Admin authorization process using password: 022000
+        // Administrative authorization process using password: 022000
         function openAdminLoginModal() {
             if (isAdminMode) {
                 isAdminMode = false;
@@ -1738,7 +1755,8 @@
                 imageUrl: resolvedImgUrl
             };
 
-            globalPostersData.push(newPoster);
+            // push 대신 unshift를 사용하여 신규 포스터가 맨 앞에 추가되도록 수정
+            globalPostersData.unshift(newPoster);
             syncWithFirestore('posters', globalPostersData);
             renderPosters();
             closeAddPosterModal();
@@ -1757,14 +1775,22 @@
             currentEditingUserId = user.id; 
             const popup = document.getElementById('upbo-edit-modal');
             
+            const hasId = user.id && user.id.trim() !== '';
+            let avatarHtml = '';
+            if (hasId) {
+                avatarHtml = `<img src="${av}" onerror="this.outerHTML='<div class=\\'w-10 h-10 rounded-full flex items-center justify-center bg-jade/10 dark:bg-teal-light/20 border border-jade/30 shadow-xs text-base bg-white dark:bg-[#1d423d]\\'>🔒</div>\\''" class="w-10 h-10 rounded-full border border-jade/30 object-cover bg-white">`;
+            } else {
+                avatarHtml = `<div class="w-10 h-10 rounded-full flex items-center justify-center bg-jade/10 dark:bg-teal-light/20 border border-jade/30 shadow-xs text-base bg-white dark:bg-[#1d423d]">🔒</div>`;
+            }
+
             document.getElementById('edit-modal-header').innerHTML = `
-                <img src="${av}" onerror="this.src='https://placehold.co/100x100/9CD5C2/0F4C43?text=${user.nickname.substring(0,2)}'" class="w-10 h-10 rounded-full border border-jade/30 object-cover bg-white">
+                ${avatarHtml}
                 <div>
                     <div class="text-gray-900 dark:text-white font-bold text-xs">
                         ${user.nickname} 
                         <span class="text-[9px] bg-jade text-teal font-bold px-1.5 py-0.5 rounded ml-1">수정모드</span>
                     </div>
-                    <div class="text-gray-450 text-[10px]">(${user.id})</div>
+                    <div class="text-gray-450 text-[10px]">(${user.id || 'ID 미지정'})</div>
                 </div>
             `;
             
@@ -1841,9 +1867,9 @@
                 <div class="flex justify-between items-center bg-[#F4FAF8] dark:bg-[#1a3a35] border border-jade/10 dark:border-teal/35 rounded-xl p-3 mb-2 font-bold text-xs">
                     <span class="text-gray-850 dark:text-gray-100">${item.name}</span>
                     <div class="flex items-center gap-2">
-                        <button onclick="changeItemCount(${index}, -1)" class="w-6 h-6 flex items-center justify-center rounded-lg bg-gray-200 dark:bg-teal/40 text-gray-600 dark:text-gray-350 hover:bg-red-100 hover:text-red-500 transition-all"><i class="fa-solid fa-minus text-[10px]"></i></button>
+                        <button onclick="changeItemCount(${index}, -1)" class="w-6 h-6 flex items-center justify-center rounded-lg bg-gray-200 dark:bg-teal/40 text-gray-600 dark:text-gray-355 hover:bg-red-100 hover:text-red-500 transition-all"><i class="fa-solid fa-minus text-[10px]"></i></button>
                         <span class="w-5 text-center text-gray-900 dark:text-white">${item.count}</span>
-                        <button onclick="changeItemCount(${index}, 1)" class="w-6 h-6 flex items-center justify-center rounded-lg bg-gray-200 dark:bg-teal/40 text-gray-600 dark:text-gray-350 hover:bg-jade/30 hover:text-teal transition-all"><i class="fa-solid fa-plus text-[10px]"></i></button>
+                        <button onclick="changeItemCount(${index}, 1)" class="w-6 h-6 flex items-center justify-center rounded-lg bg-gray-200 dark:bg-teal/40 text-gray-600 dark:text-gray-355 hover:bg-jade/30 hover:text-teal transition-all"><i class="fa-solid fa-plus text-[10px]"></i></button>
                         <button onclick="deleteItem(${index})" class="ml-2 text-gray-400 hover:text-red-500 transition-colors p-1" title="항목 영구 삭제"><i class="fa-solid fa-trash-can text-xs"></i></button>
                     </div>
                 </div>
