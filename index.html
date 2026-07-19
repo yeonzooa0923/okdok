@@ -833,7 +833,7 @@
                         globalScheduleData = data.schedule || defaultScheduleData;
                         globalProfileData = data.profile || defaultProfileData;
                         globalPostersData = data.posters || defaultPostersData;
-                        globalBangsellData = data.bangsell || defaultBangsellData;
+                        globalBangsellData = data.bangsell ? [...data.bangsell] : JSON.parse(JSON.stringify(defaultBangsellData));
                     } else {
                         // Init document entry
                         await setDoc(docRef, {
@@ -849,7 +849,7 @@
                         globalScheduleData = defaultScheduleData;
                         globalProfileData = defaultProfileData;
                         globalPostersData = defaultPostersData;
-                        globalBangsellData = defaultBangsellData;
+                        globalBangsellData = JSON.parse(JSON.stringify(defaultBangsellData));
                     }
                 } catch (error) {
                     console.warn("Using offline cached data state.", error.message);
@@ -867,7 +867,8 @@
             globalScheduleData = getLocalCache('okdokScheduleData', defaultScheduleData);
             globalProfileData = getLocalCache('okdokProfileData', defaultProfileData);
             globalPostersData = getLocalCache('okdokPostersData', defaultPostersData);
-            globalBangsellData = getLocalCache('okdokBangsellData', defaultBangsellData);
+            const cachedBangsell = getLocalCache('okdokBangsellData', null);
+            globalBangsellData = cachedBangsell ? cachedBangsell : JSON.parse(JSON.stringify(defaultBangsellData));
         }
 
         // Push updates back to Firestores
@@ -1230,7 +1231,16 @@
             if (!grid) return;
             grid.innerHTML = '';
 
-            const items = globalBangsellData.length > 0 ? globalBangsellData : defaultBangsellData;
+            const items = globalBangsellData;
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-gray-400 text-sm font-semibold bg-[#F4FAF8]/40 dark:bg-[#1a3a35]/40 rounded-2xl border border-dashed border-jade/30">
+                        👗 등록된 방셀 전용 상품이 없습니다. 관리인 권한으로 추가해 주세요!
+                    </div>
+                `;
+                return;
+            }
 
             items.forEach((item, index) => {
                 let categoryColor = "bg-emerald-500";
@@ -1311,10 +1321,10 @@
             if (!list) return;
             list.innerHTML = '';
 
-            const items = globalBangsellData.length > 0 ? globalBangsellData : defaultBangsellData;
+            const items = globalBangsellData;
 
             if (items.length === 0) {
-                list.innerHTML = `<div class="text-center text-gray-400 py-6 text-xs">등록된 방셀 상품이 없습니다. 아래에서 직접 추가해 보세요!</div>`;
+                list.innerHTML = `<div class="text-center text-gray-400 py-10 text-xs font-semibold">등록된 방셀 상품이 없습니다. 아래에서 직접 추가해 보세요!</div>`;
                 return;
             }
 
@@ -1379,7 +1389,8 @@
                 finalImage = 'https://' + finalImage;
             }
 
-            globalBangsellData.push({
+            // push 대신 unshift를 사용하여 신규 아이템이 맨 앞으로 오도록 정렬 순서 수정
+            globalBangsellData.unshift({
                 title: title,
                 category: category,
                 description: description,
@@ -1401,7 +1412,7 @@
 
             renderBangsellEditList();
             renderBangsell();
-            triggerToast(`새로운 ${category} 상품이 정산판에 등록되었습니다 💚`);
+            triggerToast(`새로운 ${category} 상품이 정산판 맨 앞에 등록되었습니다 💚`);
         }
 
         function deleteBangsellItem(index) {
