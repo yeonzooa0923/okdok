@@ -121,6 +121,7 @@
                 <nav class="hidden md:flex space-x-5 items-center font-semibold text-sm">
                     <a href="#profile" class="text-gray-600 dark:text-gray-200 hover:text-teal dark:hover:text-jade px-2.5 py-1.5 rounded-lg transition-colors">프로필</a>
                     <a href="#posters" class="text-gray-600 dark:text-gray-200 hover:text-teal dark:hover:text-jade px-2.5 py-1.5 rounded-lg transition-colors">콘텐츠 포스터</a>
+                    <a href="#bangsell" class="text-gray-600 dark:text-gray-200 hover:text-teal dark:hover:text-jade px-2.5 py-1.5 rounded-lg transition-colors">방셀 의상 👗</a>
                     <a href="#notice" class="text-gray-600 dark:text-gray-200 hover:text-teal dark:hover:text-jade px-2.5 py-1.5 rounded-lg transition-colors">공지사항</a>
                     <a href="#schedule" class="text-gray-600 dark:text-gray-200 hover:text-teal dark:hover:text-jade px-2.5 py-1.5 rounded-lg transition-colors">스케줄</a>
                     <a href="#karma" class="text-gray-600 dark:text-gray-200 hover:text-teal dark:hover:text-jade px-2.5 py-1.5 rounded-lg transition-colors">업보 보드</a>
@@ -128,7 +129,7 @@
                     <div class="h-4 w-[1px] bg-gray-200 dark:bg-teal-light/50 mx-1"></div>
                     
                     <!-- Dark Mode Toggle Button -->
-                    <button id="theme-toggle" class="text-gray-500 dark:text-gray-300 hover:bg-jade/20 dark:hover:bg-teal-light/30 p-2 rounded-lg transition-all click-bounce">
+                    <button id="theme-toggle" class="text-gray-500 dark:text-gray-300 hover:bg-jade/20 dark:hover:bg-teal-light/30 p-2 rounded-lg transition-all click-bounce" title="테마 변경">
                         <i class="fa-solid fa-moon text-base w-5 h-5 flex items-center justify-center"></i>
                     </button>
                 </nav>
@@ -150,6 +151,7 @@
             <div class="px-3 pt-2 pb-4 space-y-1 font-semibold text-sm">
                 <a href="#profile" class="block text-gray-600 dark:text-gray-200 hover:bg-jade/10 dark:hover:bg-teal-light/20 hover:text-teal dark:hover:text-jade px-4 py-2.5 rounded-xl">프로필</a>
                 <a href="#posters" class="block text-gray-600 dark:text-gray-200 hover:bg-jade/10 dark:hover:bg-teal-light/20 hover:text-teal dark:hover:text-jade px-4 py-2.5 rounded-xl">콘텐츠 포스터</a>
+                <a href="#bangsell" class="block text-gray-600 dark:text-gray-200 hover:bg-jade/10 dark:hover:bg-teal-light/20 hover:text-teal dark:hover:text-jade px-4 py-2.5 rounded-xl">방셀 의상 👗</a>
                 <a href="#notice" class="block text-gray-600 dark:text-gray-200 hover:bg-jade/10 dark:hover:bg-teal-light/20 hover:text-teal dark:hover:text-jade px-4 py-2.5 rounded-xl">공지사항</a>
                 <a href="#schedule" class="block text-gray-600 dark:text-gray-200 hover:bg-jade/10 dark:hover:bg-teal-light/20 hover:text-teal dark:hover:text-jade px-4 py-2.5 rounded-xl">스케줄</a>
                 <a href="#karma" class="block text-gray-600 dark:text-gray-200 hover:bg-jade/10 dark:hover:bg-teal-light/20 hover:text-teal dark:hover:text-jade px-4 py-2.5 rounded-xl">업보 보드</a>
@@ -262,7 +264,7 @@
 
         </section>
 
-        <!-- 3 & 4. Notice and Schedule Dual Layout -->
+        <!-- Notice and Schedule Dual Layout -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             <!-- Notice List -->
@@ -320,6 +322,28 @@
                 <!-- Poster Grid Display -->
                 <div id="poster-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     <!-- Dynamic rendering of poster items -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 이달의 방셀 의상 & 헤어 섹션 -->
+        <section id="bangsell" class="scroll-mt-20">
+            <div class="bg-white dark:bg-[#17332F] rounded-3xl shadow-sm border border-jade/25 dark:border-teal/40 p-6 transition-colors duration-300">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6 border-b border-jade/15 dark:border-teal/30 pb-4">
+                    <div>
+                        <span class="text-[10px] font-bold text-teal dark:text-jade tracking-wider block mb-0.5">KIM OKDOK MONTHLY BANGSELL CATALOG</span>
+                        <h2 class="text-2xl font-bold text-teal dark:text-white tracking-tight flex items-center gap-2">
+                            <span>👗</span> 이달의 방셀 의상 & 헤어
+                        </h2>
+                    </div>
+                    <button id="admin-bangsell-edit-btn" onclick="openBangsellEditModal()" class="hidden items-center gap-1.5 bg-teal text-jade hover:bg-[#14534B] dark:bg-[#286B61] px-4 py-2 rounded-xl text-xs font-bold shadow-sm transition-all click-bounce" title="방셀 품목 편집">
+                        <i class="fa-solid fa-shirt"></i> 의상 및 헤어 관리
+                    </button>
+                </div>
+
+                <!-- Bangsell Cards Grid -->
+                <div id="bangsell-catalog-grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                    <!-- Dynamically rendered bangsell items -->
                 </div>
             </div>
         </section>
@@ -440,6 +464,53 @@
                 <div class="mt-6 flex justify-end gap-2 text-xs font-semibold">
                     <button onclick="closeAddPosterModal()" class="px-4 py-2.5 rounded-xl bg-gray-100 dark:bg-teal-dark text-gray-600 dark:text-gray-200 hover:bg-gray-200">취소</button>
                     <button onclick="submitNewPoster()" class="px-5 py-2.5 rounded-xl bg-teal text-jade hover:bg-[#14534B]">포스터 대시보드 저장</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monthly Bangsell Catalog Manage Modal -->
+        <div id="bangsell-edit-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+            <div class="bg-white dark:bg-[#1d423d] rounded-2xl shadow-2xl w-11/12 max-w-lg overflow-hidden transform scale-95 transition-all duration-300 border border-jade/20 dark:border-teal/40 flex flex-col max-h-[85vh]">
+                <div class="p-4 flex items-center justify-between border-b border-jade/10 dark:border-teal/30 bg-jade/10 dark:bg-teal-light/20">
+                    <h3 class="text-lg font-bold text-teal dark:text-white flex items-center gap-2">
+                        <span>👗</span> 방셀 의상 및 헤어 품목 관리
+                    </h3>
+                    <button onclick="closeBangsellEditModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-white p-2">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+                
+                <div class="p-4 flex-grow overflow-y-auto space-y-3" id="bangsell-edit-list">
+                    <!-- Dynamic editing rows list -->
+                </div>
+                
+                <div class="p-4 border-t border-jade/15 dark:border-teal/30 bg-[#F4FAF8] dark:bg-[#122e29] space-y-3 text-xs font-semibold">
+                    <p class="text-xs font-bold text-teal dark:text-jade"><i class="fa-solid fa-circle-info mr-1"></i> 새 방셀 전용 품목 추가</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" id="new-bangsell-title" class="bg-white dark:bg-[#14312d] border border-jade/20 dark:border-teal/50 text-gray-900 dark:text-gray-100 rounded-xl p-2.5 outline-none font-bold text-xs" placeholder="아이템명 (예: 깔끔 제이드 오버핏 후드)">
+                        <select id="new-bangsell-category" class="bg-white dark:bg-[#14312d] border border-jade/20 dark:border-teal/50 text-gray-900 dark:text-gray-100 rounded-xl p-2.5 outline-none font-bold text-xs">
+                            <option value="의상">의상 👗</option>
+                            <option value="헤어">헤어 💇‍♂️</option>
+                            <option value="세트">세트 ✨</option>
+                        </select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" id="new-bangsell-description" class="bg-white dark:bg-[#14312d] border border-jade/20 dark:border-teal/50 text-gray-900 dark:text-gray-100 rounded-xl p-2.5 outline-none text-xs" placeholder="추가 설명 / 가격">
+                        
+                        <!-- Base64 File Uploder for Bangsell with Jade Styling -->
+                        <div class="flex gap-1.5">
+                            <label class="flex-grow flex items-center justify-center bg-jade/10 dark:bg-teal-light/20 hover:bg-jade/20 border border-dashed border-jade/40 rounded-xl px-2 text-xs font-bold text-teal dark:text-jade cursor-pointer transition-colors relative" title="사진 파일 첨부">
+                                <span id="bangsell-upload-label"><i class="fa-solid fa-file-image mr-1"></i>파일 선택</span>
+                                <input type="file" id="new-bangsell-file" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" onchange="handleBangsellFileSelection(this)">
+                            </label>
+                            <input type="text" id="new-bangsell-url" class="w-1/3 bg-white dark:bg-[#14312d] border border-jade/20 dark:border-teal/50 text-gray-900 dark:text-gray-100 rounded-xl p-2.5 outline-none text-xs" placeholder="URL 연결" title="이미지 URL 사용 시 기재">
+                        </div>
+                    </div>
+                    <div class="flex justify-end pt-1">
+                        <button onclick="addBangsellItem()" class="w-full bg-teal text-jade hover:bg-[#14534B] dark:bg-[#286B61] px-5 py-2.5 rounded-xl font-bold shadow-sm transition-all click-bounce">
+                            <i class="fa-solid fa-plus mr-1"></i>카탈로그 등록하기
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -695,12 +766,20 @@
             }
         };
 
+        // 이달의 방셀 의상 & 헤어 기본 세트
+        const defaultBangsellData = [
+            { title: "민트 크림 오버핏 후드", category: "의상", description: "김옥독의 청량 시그니처 멜론민트 오버핏 후드티 🍈", url: "https://placehold.co/400x500/F0FAF8/0F4C43?text=Jade+Hoodie" },
+            { title: "깔끔 단정 쉼표머리 헤어", category: "헤어", description: "훈훈함과 장난기가 어우러진 시그니처 쉼표 헤어 💇‍♂️", url: "https://placehold.co/400x500/F0FAF8/0F4C43?text=Comma+Hair" },
+            { title: "제이드 귀족 수트 세트", category: "세트", description: "고급 자수 디테일이 빛나는 옥독 메인 수트 세트 ✨", url: "https://placehold.co/400x500/F0FAF8/0F4C43?text=Noble+Suit" }
+        ];
+
         // Global Datasets in-memory state
         let globalUpboData = [];
         let globalNoticeData = [];
         let globalScheduleData = [];
         let globalProfileData = {};
         let globalPostersData = [];
+        let globalBangsellData = [];
         
         let isAdminMode = false;
         let currentEditingUserId = null;
@@ -730,7 +809,7 @@
                 }
                 return true;
             } catch (err) {
-                console.warn("Auth initialization delayed, caching locally first.", err.message);
+                console.warn("Auth initialization deferred, caching locally.", err.message);
                 return false;
             }
         }
@@ -754,6 +833,7 @@
                         globalScheduleData = data.schedule || defaultScheduleData;
                         globalProfileData = data.profile || defaultProfileData;
                         globalPostersData = data.posters || defaultPostersData;
+                        globalBangsellData = data.bangsell || defaultBangsellData;
                     } else {
                         // Init document entry
                         await setDoc(docRef, {
@@ -761,13 +841,15 @@
                             notice: defaultNoticeData,
                             schedule: defaultScheduleData,
                             profile: defaultProfileData,
-                            posters: defaultPostersData
+                            posters: defaultPostersData,
+                            bangsell: defaultBangsellData
                         });
                         globalUpboData = defaultUpboData;
                         globalNoticeData = defaultNoticeData;
                         globalScheduleData = defaultScheduleData;
                         globalProfileData = defaultProfileData;
                         globalPostersData = defaultPostersData;
+                        globalBangsellData = defaultBangsellData;
                     }
                 } catch (error) {
                     console.warn("Using offline cached data state.", error.message);
@@ -785,6 +867,7 @@
             globalScheduleData = getLocalCache('okdokScheduleData', defaultScheduleData);
             globalProfileData = getLocalCache('okdokProfileData', defaultProfileData);
             globalPostersData = getLocalCache('okdokPostersData', defaultPostersData);
+            globalBangsellData = getLocalCache('okdokBangsellData', defaultBangsellData);
         }
 
         // Push updates back to Firestores
@@ -924,6 +1007,7 @@
             renderPosters();
             renderNotice();
             renderSchedule();
+            renderBangsell();
             renderUpbo(globalUpboData);
         });
 
@@ -1047,7 +1131,7 @@
                 else { fancNode.style.display = 'none'; }
             }
 
-            // [Dynamic Update] Dynamically sync avatar display & dynamic tab favicon based on SOOP broadcaster ID
+            // Dynamically sync avatar display & dynamic tab favicon based on SOOP broadcaster ID
             const soopBroadcasterId = extractSoopId(platforms.soop);
             const dynamicLogoUrl = `https://stimg.afreecatv.com/LOGO/${soopBroadcasterId.substring(0, 2)}/${soopBroadcasterId}/${soopBroadcasterId}.jpg`;
             
@@ -1061,7 +1145,7 @@
             }
         }
 
-        // 📷 RENDER CONTENT POSTERS
+        // RENDER CONTENT POSTERS
         function renderPosters() {
             const gallery = document.getElementById('poster-gallery-grid');
             if (!gallery) return;
@@ -1101,6 +1185,233 @@
                 `;
             });
         }
+
+        // Local File Compression Module (Optimizes storage usage for high-performance offline/online rendering)
+        function compressImage(file, maxWidth, maxHeight) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+                        
+                        if (width > height) {
+                            if (width > maxWidth) {
+                                height = Math.round((height * maxWidth) / width);
+                                width = maxWidth;
+                            }
+                        } else {
+                            if (height > maxHeight) {
+                                width = Math.round((width * maxHeight) / height);
+                                height = maxHeight;
+                            }
+                        }
+                        
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // Ultra efficient JPEG encoding at 72% quality
+                        resolve(canvas.toDataURL('image/jpeg', 0.72)); 
+                    };
+                };
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // RENDER MONTHLY BANGSELL CATALOG 
+        function renderBangsell() {
+            const grid = document.getElementById('bangsell-catalog-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            const items = globalBangsellData.length > 0 ? globalBangsellData : defaultBangsellData;
+
+            items.forEach((item, index) => {
+                let categoryColor = "bg-emerald-500";
+                if (item.category === '헤어') categoryColor = "bg-amber-500";
+                if (item.category === '세트') categoryColor = "bg-teal-light";
+
+                grid.innerHTML += `
+                    <div class="bg-white dark:bg-[#17332F] border border-jade/15 dark:border-teal/35 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col group click-bounce cursor-pointer" onclick="openImageLightbox('${item.url || 'https://placehold.co/400x500/F0FAF8/0F4C43?text=Okdok'}', '${item.title}')">
+                        <div class="aspect-[4/5] w-full bg-jade/5 relative overflow-hidden border-b border-jade/10 dark:border-teal/30">
+                            <img src="${item.url || 'https://placehold.co/400x500/F0FAF8/0F4C43?text=Okdok'}" 
+                                 alt="${item.title}" 
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                                 onerror="this.src='https://placehold.co/400x500/F0FAF8/0F4C43?text=Okdok'">
+                            <span class="absolute top-2.5 left-2.5 text-[9px] text-white font-bold px-2.5 py-0.5 rounded-full ${categoryColor} shadow-sm">${item.category}</span>
+                        </div>
+                        <div class="p-3.5 flex flex-col justify-between flex-grow">
+                            <h4 class="text-gray-900 dark:text-white font-bold text-xs sm:text-sm truncate mb-0.5">${item.title}</h4>
+                            <p class="text-gray-500 dark:text-gray-350 text-[10px] line-clamp-2">${item.description || ''}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Image Lightbox System
+        function openImageLightbox(url, title) {
+            let lightbox = document.getElementById('image-lightbox');
+            if (!lightbox) {
+                lightbox = document.createElement('div');
+                lightbox.id = 'image-lightbox';
+                lightbox.className = 'fixed inset-0 z-[120] flex flex-col items-center justify-center bg-black/85 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300';
+                lightbox.onclick = closeImageLightbox;
+                document.body.appendChild(lightbox);
+            }
+            lightbox.innerHTML = `
+                <div class="max-w-md w-11/12 text-center relative" onclick="event.stopPropagation()">
+                    <button class="absolute -top-10 right-0 text-white hover:text-jade text-2xl" onclick="closeImageLightbox()"><i class="fa-solid fa-xmark"></i></button>
+                    <img src="${url}" class="max-h-[72vh] mx-auto rounded-2xl border-2 border-white shadow-2xl object-contain bg-white/5" onerror="this.src='https://placehold.co/400x500/F0FAF8/0F4C43?text=Okdok'">
+                    <h3 class="text-white text-sm font-bold mt-4.5 tracking-wide">${title}</h3>
+                </div>
+            `;
+            requestAnimationFrame(() => {
+                lightbox.classList.remove('opacity-0', 'pointer-events-none');
+            });
+        }
+
+        function closeImageLightbox() {
+            const lightbox = document.getElementById('image-lightbox');
+            if (lightbox) lightbox.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        // Administrative Bangsell Operations
+        let tempSelectedBase64Image = '';
+
+        function openBangsellEditModal() {
+            const modal = document.getElementById('bangsell-edit-modal');
+            renderBangsellEditList();
+            tempSelectedBase64Image = '';
+            const uploadLabel = document.getElementById('bangsell-upload-label');
+            if (uploadLabel) uploadLabel.innerHTML = `<i class="fa-solid fa-file-image mr-1"></i>파일 선택`;
+            
+            requestAnimationFrame(() => {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.querySelector('div').classList.remove('scale-95');
+                modal.querySelector('div').classList.add('scale-100');
+            });
+        }
+
+        function closeBangsellEditModal() {
+            const modal = document.getElementById('bangsell-edit-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.remove('scale-100');
+            modal.querySelector('div').classList.add('scale-95');
+        }
+
+        function renderBangsellEditList() {
+            const list = document.getElementById('bangsell-edit-list');
+            if (!list) return;
+            list.innerHTML = '';
+
+            const items = globalBangsellData.length > 0 ? globalBangsellData : defaultBangsellData;
+
+            if (items.length === 0) {
+                list.innerHTML = `<div class="text-center text-gray-400 py-6 text-xs">등록된 방셀 상품이 없습니다. 아래에서 직접 추가해 보세요!</div>`;
+                return;
+            }
+
+            items.forEach((item, index) => {
+                let badgeTheme = "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400";
+                if (item.category === "헤어") badgeTheme = "bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-400";
+                if (item.category === "세트") badgeTheme = "bg-teal/10 text-teal dark:bg-teal dark:text-jade";
+
+                list.innerHTML += `
+                    <div class="flex items-center gap-3 bg-[#F4FAF8] dark:bg-[#1a3a35] border border-jade/10 dark:border-teal/35 p-3 rounded-xl font-bold text-xs">
+                        <img src="${item.url || 'https://placehold.co/100x100/F0FAF8/0F4C43?text=Okdok'}" class="w-10 h-12 rounded-lg object-cover bg-white shadow-xs flex-shrink-0" onerror="this.src='https://placehold.co/100x100/F0FAF8/0F4C43?text=Okdok'">
+                        <div class="flex-grow min-w-0">
+                            <div class="flex items-center gap-2 mb-0.5">
+                                <span class="text-[9px] font-bold px-2 py-0.5 rounded-full ${badgeTheme}">${item.category}</span>
+                                <span class="text-xs font-bold text-gray-850 dark:text-gray-100 truncate">${item.title}</span>
+                            </div>
+                            <p class="text-[10px] text-gray-500 dark:text-gray-350 truncate font-semibold">${item.description || '상세설명 없음'}</p>
+                        </div>
+                        <button onclick="deleteBangsellItem(${index})" class="text-gray-400 hover:text-red-500 p-2 transition-colors flex-shrink-0" title="아이템 제거"><i class="fa-solid fa-trash-can text-xs"></i></button>
+                    </div>
+                `;
+            });
+        }
+
+        async function handleBangsellFileSelection(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const label = document.getElementById('bangsell-upload-label');
+            if (label) label.innerHTML = `<i class="fa-solid fa-spinner animate-spin mr-1"></i>처리 중`;
+
+            try {
+                // High compression resize logic to fit database storage quotas perfectly (400x500 is optimal)
+                tempSelectedBase64Image = await compressImage(file, 400, 500);
+                if (label) label.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-500 mr-1"></i>선택됨`;
+                triggerToast("방셀 의상 사진이 압축되어 캐싱되었습니다! 📸");
+            } catch (err) {
+                console.error("Image optimization error:", err);
+                if (label) label.innerHTML = `<i class="fa-solid fa-circle-xmark text-red-500 mr-1"></i>실패`;
+            }
+        }
+
+        function addBangsellItem() {
+            const titleInput = document.getElementById('new-bangsell-title');
+            const categoryInput = document.getElementById('new-bangsell-category');
+            const descInput = document.getElementById('new-bangsell-description');
+            const urlInput = document.getElementById('new-bangsell-url');
+            
+            const title = titleInput.value.trim();
+            const category = categoryInput.value;
+            const description = descInput.value.trim();
+            let url = urlInput.value.trim();
+
+            if (!title) {
+                triggerToast("의상/헤어의 이름을 지정해야합니다!");
+                return;
+            }
+
+            let finalImage = tempSelectedBase64Image || url || `https://placehold.co/400x500/F0FAF8/0F4C43?text=${encodeURIComponent(category)}`;
+
+            if (url && !finalImage.startsWith('data:') && !/^https?:\/\//i.test(finalImage)) {
+                finalImage = 'https://' + finalImage;
+            }
+
+            globalBangsellData.push({
+                title: title,
+                category: category,
+                description: description,
+                url: finalImage
+            });
+
+            syncWithFirestore('bangsell', globalBangsellData);
+            
+            // Clean up forms
+            titleInput.value = '';
+            descInput.value = '';
+            urlInput.value = '';
+            tempSelectedBase64Image = '';
+            
+            const fileInput = document.getElementById('new-bangsell-file');
+            if (fileInput) fileInput.value = '';
+            const label = document.getElementById('bangsell-upload-label');
+            if (label) label.innerHTML = `<i class="fa-solid fa-file-image mr-1"></i>파일 선택`;
+
+            renderBangsellEditList();
+            renderBangsell();
+            triggerToast(`새로운 ${category} 상품이 정산판에 등록되었습니다 💚`);
+        }
+
+        function deleteBangsellItem(index) {
+            globalBangsellData.splice(index, 1);
+            syncWithFirestore('bangsell', globalBangsellData);
+            renderBangsellEditList();
+            renderBangsell();
+            triggerToast("선택한 상품이 카탈로그에서 제거되었습니다.");
+        }
+
 
         // RENDER NOTICES
         function renderNotice() {
@@ -1267,11 +1578,13 @@
                 isAdminMode = false;
                 document.getElementById('admin-add-user-btn').classList.add('hidden');
                 document.getElementById('admin-add-poster-btn').classList.add('hidden');
+                document.getElementById('admin-bangsell-edit-btn').classList.add('hidden');
                 document.getElementById('admin-notice-edit-btn').classList.add('hidden'); 
                 document.getElementById('admin-schedule-edit-btn').classList.add('hidden'); 
                 document.getElementById('admin-profile-edit-btn').classList.add('hidden');
                 document.getElementById('upbo-search').dispatchEvent(new Event('input')); 
-                renderPosters(); // Re-render to hide delete badges
+                renderPosters(); 
+                renderBangsell();
                 triggerToast("관리인 권한 세션이 정상적으로 종료되었습니다. 💚");
                 return;
             }
@@ -1300,11 +1613,13 @@
                 closeAdminLoginModal();
                 document.getElementById('admin-add-user-btn').classList.remove('hidden');
                 document.getElementById('admin-add-poster-btn').classList.remove('hidden');
+                document.getElementById('admin-bangsell-edit-btn').classList.remove('hidden');
                 document.getElementById('admin-notice-edit-btn').classList.remove('hidden'); 
                 document.getElementById('admin-schedule-edit-btn').classList.remove('hidden'); 
                 document.getElementById('admin-profile-edit-btn').classList.remove('hidden');
                 document.getElementById('upbo-search').dispatchEvent(new Event('input'));
-                renderPosters(); // Re-render to show delete badges
+                renderPosters(); 
+                renderBangsell();
                 triggerToast("김옥독 님의 승인된 매니저 권한이 발급되었습니다! ✦");
             } else {
                 const targetBox = document.getElementById('admin-pin');
@@ -1321,9 +1636,7 @@
         // Sync local caches
         function commitUpboDatabase() { syncWithFirestore('upbo', globalUpboData); }
 
-        // ====================================================
-        // 📷 POSTER SYSTEM: Local File Base64 compression
-        // ====================================================
+        // POSTER SYSTEM: Local File Base64 compression
         let tempBase64PosterImage = '';
 
         function openAddPosterModal() {
@@ -1358,7 +1671,6 @@
                 const img = new Image();
                 img.src = e.target.result;
                 img.onload = () => {
-                    // Maximum dimensions: 600 width is highly optimal and compact
                     const canvas = document.createElement('canvas');
                     const MAX_WIDTH = 600;
                     let width = img.width;
@@ -1853,6 +2165,15 @@
         window.submitNewPoster = submitNewPoster;
         window.deletePoster = deletePoster;
         window.closeUpboDetailPopup = closeUpboDetailPopup;
+        
+        // Expose new Monthly Bangsell interactions
+        window.openBangsellEditModal = openBangsellEditModal;
+        window.closeBangsellEditModal = closeBangsellEditModal;
+        window.addBangsellItem = addBangsellItem;
+        window.deleteBangsellItem = deleteBangsellItem;
+        window.handleBangsellFileSelection = handleBangsellFileSelection;
+        window.openImageLightbox = openImageLightbox;
+        window.closeImageLightbox = closeImageLightbox;
     </script>
 </body>
 </html>
