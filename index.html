@@ -262,28 +262,6 @@
 
         </section>
 
-        <!-- 2. Content Posters (콘텐츠 포스터) Section -->
-        <section id="posters" class="scroll-mt-20">
-            <div class="bg-white dark:bg-[#17332F] rounded-3xl shadow-sm border border-jade/25 dark:border-teal/40 p-6 transition-colors duration-300">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6 border-b border-jade/15 dark:border-teal/30 pb-4">
-                    <div>
-                        <h2 class="text-2xl font-bold text-teal dark:text-white tracking-tight flex items-center gap-2">
-                            <i class="fa-solid fa-images text-jade"></i> 김옥독 기획 콘텐츠 포스터
-                        </h2>
-                        <p class="text-xs text-gray-400 dark:text-gray-350 mt-1">옥독님이 펼쳐온 대형 콘텐츠와 기념일 포스터 갤러리입니다.</p>
-                    </div>
-                    <button id="admin-add-poster-btn" onclick="openAddPosterModal()" class="hidden items-center gap-1.5 bg-teal text-jade hover:bg-[#14534B] dark:bg-[#286B61] px-4 py-2 rounded-xl text-xs font-bold shadow-sm transition-all click-bounce">
-                        <i class="fa-solid fa-file-arrow-up"></i> 포스터 신규 등록
-                    </button>
-                </div>
-
-                <!-- Poster Grid Display -->
-                <div id="poster-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    <!-- Dynamic rendering of poster items -->
-                </div>
-            </div>
-        </section>
-
         <!-- 3 & 4. Notice and Schedule Dual Layout -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             
@@ -323,6 +301,28 @@
                 </div>
             </section>
         </div>
+
+        <!-- 2. Content Posters (콘텐츠 포스터) Section -->
+        <section id="posters" class="scroll-mt-20">
+            <div class="bg-white dark:bg-[#17332F] rounded-3xl shadow-sm border border-jade/25 dark:border-teal/40 p-6 transition-colors duration-300">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-6 border-b border-jade/15 dark:border-teal/30 pb-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-teal dark:text-white tracking-tight flex items-center gap-2">
+                            <i class="fa-solid fa-images text-jade"></i> 김옥독 기획 콘텐츠 포스터
+                        </h2>
+                        <p class="text-xs text-gray-400 dark:text-gray-350 mt-1">옥독님이 펼쳐온 대형 콘텐츠와 기념일 포스터 갤러리입니다.</p>
+                    </div>
+                    <button id="admin-add-poster-btn" onclick="openAddPosterModal()" class="hidden items-center gap-1.5 bg-teal text-jade hover:bg-[#14534B] dark:bg-[#286B61] px-4 py-2 rounded-xl text-xs font-bold shadow-sm transition-all click-bounce">
+                        <i class="fa-solid fa-file-arrow-up"></i> 포스터 신규 등록
+                    </button>
+                </div>
+
+                <!-- Poster Grid Display -->
+                <div id="poster-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <!-- Dynamic rendering of poster items -->
+                </div>
+            </div>
+        </section>
 
         <!-- 5. Karma (업보) Board -->
         <section id="karma" class="scroll-mt-20">
