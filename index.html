@@ -420,7 +420,7 @@
                     <h3 class="text-lg font-bold text-teal dark:text-white flex items-center gap-2">
                         <i class="fa-solid fa-file-circle-plus text-jade"></i> 기획 콘텐츠 포스터 업로드
                     </h3>
-                    <button onclick="closeAddPosterModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-white">
+                    <button onclick="closeAddPosterModal()" class="text-gray-400 hover:text-gray-650 dark:hover:text-white">
                         <i class="fa-solid fa-xmark text-xl"></i>
                     </button>
                 </div>
@@ -524,7 +524,7 @@
                         <button id="delete-user-confirm-btn" class="hidden bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 font-bold px-2.5 py-1.5 rounded-lg hover:bg-red-100 transition-all">
                             <i class="fa-solid fa-user-minus mr-1"></i>명부 제거
                         </button>
-                        <button onclick="closeUpboEditModal()" class="text-gray-400 hover:text-gray-650 dark:hover:text-white p-2">
+                        <button onclick="closeUpboEditModal()" class="text-gray-400 hover:text-gray-655 dark:hover:text-white p-2">
                             <i class="fa-solid fa-xmark text-xl"></i>
                         </button>
                     </div>
@@ -621,10 +621,35 @@
                 </div>
                 
                 <div class="p-5 flex-grow overflow-y-auto space-y-6 text-xs font-semibold">
-                    <!-- Banner 설정 -->
+                    <!-- Banner 설정 (Direct File Upload added) -->
                     <div>
                         <h4 class="text-sm font-bold text-teal dark:text-jade mb-2">대표 상단 배너 설정</h4>
-                        <input type="text" id="edit-profile-banner" class="w-full bg-[#F4FAF8] dark:bg-[#14312d] border border-jade/20 dark:border-teal/50 text-gray-900 dark:text-gray-100 p-3 rounded-xl outline-none" placeholder="웹 배너 이미지 주소 URL">
+                        
+                        <!-- Banner Drag-and-Drop Area style upload container -->
+                        <div class="border-2 border-dashed border-jade/40 dark:border-teal/60 rounded-2xl p-4 text-center bg-[#F4FAF8]/50 dark:bg-[#14312d]/50 mb-3">
+                            <label class="block text-gray-600 dark:text-gray-300 mb-2 font-bold">배너 이미지 파일 등록</label>
+                            <input type="file" id="profile-banner-file" accept="image/*" class="hidden" onchange="handleBannerFileSelection(event)">
+                            
+                            <div id="banner-upload-trigger" onclick="document.getElementById('profile-banner-file').click()" class="cursor-pointer bg-teal/10 hover:bg-teal/20 text-teal dark:text-jade py-2 px-4 rounded-xl inline-flex items-center gap-2 mb-2 transition-all">
+                                <i class="fa-solid fa-cloud-arrow-up text-sm"></i> 내 컴퓨터에서 배너 찾기
+                            </div>
+                            
+                            <!-- Mini Preview of Uploaded Banner -->
+                            <div id="banner-upload-preview-container" class="hidden mt-3 relative block">
+                                <img id="banner-upload-preview" src="" class="w-full max-h-32 rounded-lg shadow-sm border border-jade/30 object-cover">
+                                <button type="button" onclick="clearSelectedBannerFile()" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px]"><i class="fa-solid fa-times"></i></button>
+                            </div>
+                            
+                            <p class="text-[10px] text-gray-400 dark:text-gray-300 mt-2">※ 권장 비율: 1200x400 (3:1 비율) / 파일은 안전 압축되어 업로드됩니다.</p>
+                        </div>
+                        
+                        <!-- URL fallback alternative accordion fold -->
+                        <details class="text-[11px] text-gray-500 dark:text-gray-400 cursor-pointer">
+                            <summary class="hover:text-teal dark:hover:text-jade font-semibold outline-none">또는 인터넷 이미지 URL로 설정하기</summary>
+                            <div class="mt-2">
+                                <input type="text" id="edit-profile-banner-url" class="w-full bg-[#F4FAF8] dark:bg-[#14312d] border border-jade/20 dark:border-teal/50 text-gray-900 dark:text-gray-100 p-2.5 rounded-xl outline-none" placeholder="https:// ... 형식의 주소를 입력">
+                            </div>
+                        </details>
                     </div>
                     <hr class="border-jade/10 dark:border-teal/30">
 
@@ -1389,7 +1414,6 @@
                 finalImage = 'https://' + finalImage;
             }
 
-            // push 대신 unshift를 사용하여 신규 아이템이 맨 앞으로 오도록 정렬 순서 수정
             globalBangsellData.unshift({
                 title: title,
                 category: category,
@@ -1422,7 +1446,6 @@
             renderBangsell();
             triggerToast("선택한 상품이 카탈로그에서 제거되었습니다.");
         }
-
 
         // RENDER NOTICES
         function renderNotice() {
@@ -1502,7 +1525,7 @@
             return `https://placehold.co/100x100/9CD5C2/0F4C43?text=${encodeURIComponent(fallbackName)}`;
         }
 
-        // RENDER KARMA (Includes lock icon replacing standard images on missing IDs or image error handles)
+        // RENDER KARMA 
         function renderUpbo(data) {
             const grid = document.getElementById('upbo-grid');
             if (!grid) return;
@@ -1577,7 +1600,7 @@
                                 <div class="text-gray-450 dark:text-gray-300 text-[10px]">(${user.id || 'ID 미지정'})</div>
                             </div>
                         </div>
-                        <button onclick="closeUpboDetailPopup()" class="text-gray-400 hover:text-gray-650 dark:hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
+                        <button onclick="closeUpboDetailPopup()" class="text-gray-400 hover:text-gray-655 dark:hover:text-white p-2"><i class="fa-solid fa-xmark text-lg"></i></button>
                     </div>
                     <div class="p-4 max-h-60 overflow-y-auto">${recordsHtml}</div>
                 </div>
@@ -1635,7 +1658,6 @@
 
         function checkAdminPin() {
             const pinVal = document.getElementById('admin-pin').value;
-            // Admin password requested as 022000
             if (pinVal === '022000') { 
                 isAdminMode = true; 
                 closeAdminLoginModal();
@@ -1755,7 +1777,6 @@
                 imageUrl: resolvedImgUrl
             };
 
-            // push 대신 unshift를 사용하여 신규 포스터가 맨 앞에 추가되도록 수정
             globalPostersData.unshift(newPoster);
             syncWithFirestore('posters', globalPostersData);
             renderPosters();
@@ -2065,12 +2086,68 @@
             triggerToast("금주의 방송 고정 스케줄이 실시간 갱신되었습니다. 🗓️");
         }
 
+        // Admin Banner Upload operations
+        let tempBase64BannerImage = '';
+
+        async function handleBannerFileSelection(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const triggerBtn = document.getElementById('banner-upload-trigger');
+            if (triggerBtn) {
+                triggerBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin mr-1"></i>처리 중...`;
+            }
+
+            try {
+                // Wide banner typical size limit optimized to 1200x400 to match design perfectly
+                tempBase64BannerImage = await compressImage(file, 1200, 400);
+                
+                document.getElementById('banner-upload-preview').src = tempBase64BannerImage;
+                document.getElementById('banner-upload-preview-container').classList.remove('hidden');
+                triggerToast("배너 이미지가 성공적으로 압축 캐싱되었습니다! 📸");
+            } catch (error) {
+                console.error("Banner upload error:", error);
+                triggerToast("이미지 업로드에 실패했습니다. 다시 시도해 주세요.");
+            } finally {
+                if (triggerBtn) {
+                    triggerBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up text-sm"></i> 내 컴퓨터에서 배너 찾기`;
+                }
+            }
+        }
+
+        function clearSelectedBannerFile() {
+            document.getElementById('profile-banner-file').value = '';
+            tempBase64BannerImage = '';
+            document.getElementById('banner-upload-preview').src = '';
+            document.getElementById('banner-upload-preview-container').classList.add('hidden');
+            triggerToast("선택한 배너 파일이 해제되었습니다.");
+        }
+
         // Admin Profile Controls
         function openProfileEditModal() {
             const modal = document.getElementById('profile-edit-modal');
             
-            // Re-populate settings inputs
-            document.getElementById('edit-profile-banner').value = globalProfileData.bannerUrl || defaultProfileData.bannerUrl || '';
+            // Clear prior upload files
+            document.getElementById('profile-banner-file').value = '';
+            tempBase64BannerImage = globalProfileData.bannerUrl || '';
+
+            // Render existing banner in preview if base64 or URL exists
+            if (tempBase64BannerImage) {
+                document.getElementById('banner-upload-preview').src = tempBase64BannerImage;
+                document.getElementById('banner-upload-preview-container').classList.remove('hidden');
+                
+                // If it is standard URL instead of base64, also populate url input
+                if (!tempBase64BannerImage.startsWith('data:')) {
+                    document.getElementById('edit-profile-banner-url').value = tempBase64BannerImage;
+                } else {
+                    document.getElementById('edit-profile-banner-url').value = '';
+                }
+            } else {
+                document.getElementById('banner-upload-preview').src = '';
+                document.getElementById('banner-upload-preview-container').classList.add('hidden');
+                document.getElementById('edit-profile-banner-url').value = '';
+            }
+
             document.getElementById('edit-profile-intro').value = globalProfileData.introText || ''; 
             document.getElementById('edit-profile-tags').value = (globalProfileData.tags || []).join(', ');
             
@@ -2136,7 +2213,10 @@
         function saveProfileChanges() {
             const splitAndTrim = (str) => str.split(',').map(item => item.trim()).filter(item => item !== '');
             
-            globalProfileData.bannerUrl = document.getElementById('edit-profile-banner').value.trim();
+            // Prioritize the compressed uploaded image. If empty, fall back to URL input, then default
+            const urlInputBanner = document.getElementById('edit-profile-banner-url').value.trim();
+            globalProfileData.bannerUrl = tempBase64BannerImage || urlInputBanner || defaultProfileData.bannerUrl;
+
             globalProfileData.introText = document.getElementById('edit-profile-intro').value; 
             globalProfileData.tags = splitAndTrim(document.getElementById('edit-profile-tags').value);
             
@@ -2202,6 +2282,10 @@
         window.submitNewPoster = submitNewPoster;
         window.deletePoster = deletePoster;
         window.closeUpboDetailPopup = closeUpboDetailPopup;
+        
+        // Expose Banner file triggers globally
+        window.handleBannerFileSelection = handleBannerFileSelection;
+        window.clearSelectedBannerFile = clearSelectedBannerFile;
         
         // Expose new Monthly Bangsell interactions
         window.openBangsellEditModal = openBangsellEditModal;
